@@ -5,7 +5,7 @@ const {
 } = require("../sections/3-closure.js");
 
 // change 'xdescribe' to 'describe' to run the tests!
-xdescribe("generateMultiples()", () => {
+describe("generateMultiples()", () => {
   test("will return a new function", () => {
     const createMultiplesOf5 = generateMultiples();
     expect(typeof createMultiplesOf5).toBe("function");
@@ -33,7 +33,7 @@ xdescribe("generateMultiples()", () => {
 });
 
 // change 'xdescribe' to 'describe' to run the tests!
-xdescribe("secureFunc()", () => {
+describe("secureFunc()", () => {
   test("returns a new function", () => {
     const securedFunc = secureFunc();
     expect(typeof securedFunc).toBe("function");

@@ -200,7 +200,7 @@ describe('makeNameTags tests', () => {
       //Assert
       expect(output).toEqual(expectedOutput);
     });
-    test('shoudl not mutate the original array', () => {
+    test('should not mutate the original array', () => {
       //Arrange
       const input = NCFruitBowl;
       const inputCopy = [...input];

@@ -122,3 +122,71 @@ describe('deepEntries tests', () => {
       expect(deeplyEquals([ 'Numbers', {1: {2: {3: 3}}}, [4, [5]]], [ 'Numbers', {1: {2: {3: 3}}}, [4, [5]]])).toBe(true);
     });
   });
+
+  //The flat() method creates a new array with all sub-array elements concatenated into it recursively up to the specified depth. 
+      //const arr1 = [0, 1, 2, [3, 4]];
+      // console.log(arr1.flat());
+      //    Expected output: Array [0, 1, 2, 3, 4]
+
+      // const arr2 = [0, 1, 2, [[[3, 4]]]]
+      // console.log(arr2.flat(2));
+      //    Expected output: Array [0, 1, 2, Array [3, 4]]
+
+  describe('flat tests', () => {
+    test('Returns an array', () => {
+      //Arrange
+      const input = [];
+      const expectedOutput = [];
+      //Act
+      const output = flat(input);
+      //Assert
+      expect(output).toEqual(expectedOutput);
+    });
+    test('Returns a new array', () => {
+      //Arrange
+      const input = [];
+      //Act
+      const output = flat(input);
+      //Assert
+      expect(output).not.toBe(input);
+    });
+    test('Returns an array with the sub-array concatenated into it, if passed an array with one level of nesting', () => {
+      //Arrange
+      const input = [0, 1, [2, 3,], 4];
+      const expectedOutput = [0, 1, 2, 3, 4];
+      //Act
+      const output = flat(input);
+      //Assert
+      expect(output).toEqual(expectedOutput);
+    });
+    test('Returns an array with the sub-array(s) concatenated into it, if passed an array with one level of nesting, accounting for multiple one-level sub-arrays', () => {
+      //Arrange
+      const input = [0, 1, [2, 3,], [4, 5]];
+      const expectedOutput = [0, 1, 2, 3, 4, 5];
+      //Act
+      const output = flat(input);
+      //Assert
+      expect(output).toEqual(expectedOutput);
+    });
+    test('If there is no argument given for depth, the flat function will default to concatenating one level deep', () => {
+      //Arrange
+      const input = [0, 1, [2, 3, [4, 5]]];
+      const expectedOutput = [0, 1, 2, 3, [4, 5]];
+      //Act
+      const output = flat(input);
+      //Assert
+      expect(output).toEqual(expectedOutput);
+    });
+    test('If there is an argument for depth, the flat function will concatenate up to that depth', () => {
+      //Arrange
+      const input1 = [0, 1, [2, 3, [4, 5]]];
+      const input2 = [0, 1, [2, 3, [4, [5, [6, 7]]]]];
+      const expectedOutput1 = [0, 1, 2, 3, 4, 5];
+      const expectedOutput2 = [0, 1, 2, 3, 4, [5, [6, 7]]]
+
+      //Assert
+      expect(flat(input1, 2)).toEqual(expectedOutput1);
+      //Assert
+      expect(flat(input2, 2)).toEqual(expectedOutput2);
+    });
+  });

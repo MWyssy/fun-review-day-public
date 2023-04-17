@@ -44,6 +44,31 @@ const deeplyEquals = (a, b) => {
     return false;
  };
 
-const flat = () => { };
+const flat = (arr, depth) => {
+    let nestedArray = [];
+    let furtherNestedArray = [];
+    const depthLevel = depth - 1;
+
+    for (let i = 0; i < arr.length; i++) {
+        if (Array.isArray(arr[i])) {
+            nestedArray = nestedArray.concat(arr[i]);
+
+            if (depth > 1) {
+                for (let b = 0; b < nestedArray.length; b++) {
+                    if (Array.isArray(nestedArray[b])) {
+                        furtherNestedArray = flat(nestedArray, depthLevel);
+                        nestedArray.splice(b, 1);
+                        nestedArray = furtherNestedArray;
+                        break;
+                    };
+                };
+            };
+        };
+    };
+    return arr
+        .filter((value) => !Array.isArray(value))
+        .concat(nestedArray)
+        .sort((a, b) => a - b);
+};
 
 module.exports = { deeplyEquals, flat, deepEntries };

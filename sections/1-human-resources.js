@@ -1,26 +1,21 @@
 function removeAgents(employees) {
-    const result = [];
-
-    employees.map((employee) => {
-        const copyEmployee = {...employee};
-        if (copyEmployee.profession !== 'mole') {
-            return result.push(copyEmployee);
-        };
+    return employees.filter((employee) => {
+        if (employee.profession !== 'mole') {
+            return employee;
+        }
     });
-
-    return result;
-}
+};
 
 function makeNameTags(guests) {
     const result = [];
+    if (guests.length === 0) return result;
 
-    if (!guests[0].title) return result;
+    for (let i = 0; i < guests.length; i++) {
+        result.push(`${guests[i].title} ${guests[i].forename} ${guests[i].surname}, ${guests[i].company}`)
+    }
 
-    guests.map((guest) => {
-        return result.push(`${guest.title} ${guest.forename} ${guest.surname}, ${guest.company}`)
-    });
+    return result
 
-    return result;
 }
 
 function createPoll(pollResult) {

@@ -35,6 +35,31 @@ describe('removeAgents tests', () => {
       //Assert
       expect(output).not.toBe(expectedOutput);
     });
+    test('the returned array should remove the employee if passed one argument, and they are a \'mole\'.', () => {
+      //Arrange
+      const input = [
+        { name: "Mitch", profession: "mole" }
+      ];
+      const expectedOutput = [
+      ];
+      //Act
+      const output = removeAgents(input);
+      //Assert
+      expect(output).toEqual(expectedOutput);
+    });
+    test('the returned array should keep the employee if passed one argument, and they are not a \'mole\'.', () => {
+      //Arrange
+      const input = [
+        { name: "Mitch", profession: "artist" }
+      ];
+      const expectedOutput = [
+        { name: "Mitch", profession: "artist" }
+      ];
+      //Act
+      const output = removeAgents(input);
+      //Assert
+      expect(output).toEqual(expectedOutput);
+    });
     test('the returned array should remove all of the employees with the profession of \'mole\'.', () => {
       //Arrange
       const input = [
@@ -58,14 +83,14 @@ describe('removeAgents tests', () => {
     test('the original array and people objects should not be changed', () => {
       //Arrange
       const input = [
-        { name: "Sam", profession: "artist" },
+        { name: "Sam", profession: "mole" },
         { name: "Mitch", profession: "mole" },
         { name: "Derek", profession: "Developer" },
         { name: "Sally", profession: "People Manager" },
         { name: "Rich", profession: "mole" },
         { name: "Bob", profession: "mole" },
       ];
-      const inputCopy = [...input].map((employee) => {
+      const inputCopy = input.map((employee) => {
         return {...employee}
       });
       //Act
@@ -84,9 +109,7 @@ describe('removeAgents tests', () => {
 describe('makeNameTags tests', () => {
     test('returns an array', () => {
       //Arrange
-      const input = [
-        {},
-      ];
+      const input = [];
       const expectedOutput = [];
       //Act
       const output = makeNameTags(input);
@@ -95,8 +118,22 @@ describe('makeNameTags tests', () => {
     });
     test('returns a new array', () => {
       //Arrange
+      const input = [];
+      const expectedOutput = ['Mr Sam Caine, Northcoders'];
+      //Act
+      const output = makeNameTags(input);
+      //Assert
+      expect(output).not.toBe(expectedOutput);
+    });
+    test('the array should contain the text (formatted as <title> <forename> <surname>, <company>)', () => {
+      //Arrange
       const input = [
-        {},
+        { title: "Mr",
+        forename: "Sam",
+        surname: "Caine",
+        age: 30,
+        company: "Northcoders",
+      },
       ];
       const expectedOutput = [];
       //Act
@@ -163,7 +200,7 @@ describe('makeNameTags tests', () => {
         company: "Jim Henson Studios",
       },
       ];
-      const copyInput = [...input].map((guest) => {
+      const copyInput = input.map((guest) => {
         return {...guest};
       })
       //Act
@@ -180,6 +217,33 @@ describe('makeNameTags tests', () => {
       //Arrange
       const input = [];
       const expectedOutput = {};
+      //Act
+      const output = createPoll(input);
+      //Assert
+      expect(output).toEqual(expectedOutput);
+    });
+    test('returns an object containing the single fruit passed in the array, and a value of 1', () => {
+      //Arrange
+      const input = ["apple"];
+      const expectedOutput = {"apple": 1};
+      //Act
+      const output = createPoll(input);
+      //Assert
+      expect(output).toEqual(expectedOutput);
+    });
+    test('will add one to the fruit\'s tally when another fruit of the same type is in the array', () => {
+      //Arrange
+      const input = ["apple", "apple"];
+      const expectedOutput = {"apple": 2};
+      //Act
+      const output = createPoll(input);
+      //Assert
+      expect(output).toEqual(expectedOutput);
+    });
+    test('will add additional fruit based on what is present in the array', () => {
+      //Arrange
+      const input = ["apple", "apple", "orange"];
+      const expectedOutput = {"apple": 2, "orange": 1};
       //Act
       const output = createPoll(input);
       //Assert
